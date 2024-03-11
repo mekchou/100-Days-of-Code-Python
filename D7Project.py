@@ -2,23 +2,26 @@ import random
 import string
 
 wordList = ["cat", "rainbow", "dragonball"]
-
-# TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
-
 chosenWord = random.choice(wordList) 
-
-# TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
-
 guess = ""
+display = []
+
+for letter in chosenWord:
+  display.append("_")
+
 while not (len(guess) == 1 and guess in string.ascii_letters):
   guess = input("guess a letter\n").lower()
 
-# TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
 
-for letter in range(chosenWord):
-  if letter == guess:
+
+for num in range(len(chosenWord)):
+  if chosenWord[num] == guess:
     print("Right")
+    display[num] = guess
   else:
     print("Wrong")
+
+
+print(f"display is \n {display}")
 print(f"the word is {chosenWord}")
 print(f"letter entered is {guess}")
