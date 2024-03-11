@@ -15,8 +15,8 @@ while not (len(guess) == 1 and guess in string.ascii_letters):
 
 # TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
 
-for num in range(len(chosenWord)):
-  if chosenWord[num] == guess:
+for letter in range(chosenWord):
+  if letter == guess:
     print("Right")
   else:
     print("Wrong")
