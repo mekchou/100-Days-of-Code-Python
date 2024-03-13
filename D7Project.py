@@ -1,72 +1,23 @@
 import random
 import string
+import sys
+sys.path.append(r'C:\Users\MekChou\OneDrive\Code\Udemy\100-Days-of-Code-Python\module')
+from hangman_art import logo
+from hangman_art import stages
+import hangman_words
 
-wordList = ["cat", "rainbow", "dragonball"]
-chosenWord = random.choice(wordList) 
+chosenWord = random.choice(hangman_words.word_list) 
 guess = ""
 display = []
 endOfGame = False
-stages = ['''
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========''', '''
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-''', '''
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
-''']
+
 lives = len(stages)-1
 
 # initialize display word
 for letter in chosenWord:
   display.append("_")
+# start of game
+print(logo)
 # if endOfGane = false
 while not endOfGame:
   # re enter in input is invalid
@@ -81,7 +32,11 @@ while not endOfGame:
   # lives -1 if guess incorrect
   if guess not in chosenWord:
     lives -= 1
-
+    print(f"{guess} is not in the word")
+  # let user know if letter is guessed
+  if guess in display:
+    print(f"{guess} has already been guessed")
+  
   # print display word
   print(display)
   # print stages
