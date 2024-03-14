@@ -38,7 +38,7 @@ while not endOfGame:
     print(f"{guess} has already been guessed")
   
   # print display word
-  print(display)
+  print(f"{' '.join(display)}")
   # print stages
   print(stages[lives])
   # end game if lives = 0
