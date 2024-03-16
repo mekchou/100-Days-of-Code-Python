@@ -26,12 +26,29 @@ operations = {
 # function = operations["+"]
 # print(function(2,3))
 
-print(logo)
 
-num1 = int(input("What's the fist number?: "))
-num2 = int(input("What's the second number?: "))
-for symbol in operations:
-  print(symbol)
-operationSymbol = input("Pick an operation from the line above: ")
-answer = operations[operationSymbol](num1, num2)
-print(f"{num1} {operationSymbol} {num2} = {answer}")
+def calculator():
+  print(logo)
+
+  continueCalc = True
+  num1 = float(input("What's the fist number?: "))
+  for symbol in operations:
+    print(symbol)
+
+  while continueCalc:
+    operationSymbol = input("Pick an operation: ")
+    num2 = float(input("What's the next number?: "))
+
+    answer = operations[operationSymbol](num1, num2)
+    print(f"{num1} {operationSymbol} {num2} = {answer}")
+
+    continueCheck = input(f"Type 'y' to continue calculating witn {answer}, or type 'n' to start a new calculation, or type others to exit: ")
+    if continueCheck == "y":
+      num1 = answer
+    elif continueCheck == "n":
+      continueCalc = False
+      calculator()
+    else:
+      break
+
+calculator()
