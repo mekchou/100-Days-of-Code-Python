@@ -1,4 +1,6 @@
-
+import sys
+sys.path.append(r'C:\Users\MekChou\OneDrive\Code\Udemy\100-Days-of-Code-Python\module')
+from calc_art import logo
 # plus function
 def add(m, n):
   return m + n
@@ -23,6 +25,8 @@ operations = {
 
 # function = operations["+"]
 # print(function(2,3))
+
+print(logo)
 
 num1 = int(input("What's the fist number?: "))
 num2 = int(input("What's the second number?: "))
