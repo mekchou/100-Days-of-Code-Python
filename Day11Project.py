@@ -25,7 +25,9 @@
 #   https://appbrewery.github.io/python-day11-demo/
 
 import random
-
+import sys
+sys.path.append(r'C:\Users\MekChou\OneDrive\Code\Udemy\100-Days-of-Code-Python\module')
+from blackjack_art import logo
 # create list of deck
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
@@ -47,52 +49,66 @@ def scoreSum(deck):
     score += num
   return score
 
-# initialize game
-playerDeck = initialDeck()
-computerDeck = initialDeck()
-# print(playerDeck)
-# print(computerDeck)
-playerScore = scoreSum(playerDeck)
-computerScore = scoreSum(computerDeck)
+def welcome():
+  print(logo)
 
-addCard = True
-# while loop to continue game
-while addCard:
-  print(f"Your cards: {playerDeck}, current score: {playerScore}")
-  print(f"Computer's first card: {computerDeck[0]}")
-# lose if player > 21
-  if playerScore > 21:
-    addCard = False
-    print("You went over. You lose")
-    break
-# win if 21
-  # elif playerScore == 21:
-  #   addCard = False
-  #   print("Win with a Blackjack")
-  #   break
-  
-  addCardString = input("Type 'y' to get another card, type 'n' to pass: ")
+# start a game function
+def game():
+  playGame = input("Do you want to plan a game of Bkackjack? Type 'y' or 'n': ")
+  if playGame == "y":
 
-  if addCardString == "y":
-    playerDeck.append(newCard())
+    # initialize game
+    playerDeck = initialDeck()
+    computerDeck = initialDeck()
+    # print(playerDeck)
+    # print(computerDeck)
     playerScore = scoreSum(playerDeck)
-  elif addCardString == "n":
-    addCard = False
-    while computerScore < 17:
-      computerDeck.append(newCard())
-      computerScore = scoreSum(computerDeck)
-    if computerScore > 21:
-      print(f"Your final hand: {playerDeck}, final score: {playerScore}")
-      print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
-      print("Opponent went over. You win")
-      break
-    else:
-      print(f"Your final hand: {playerDeck}, final score: {playerScore}")
-      print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
-      if playerScore == computerScore:
-        print("Draw")
-      elif playerScore > computerScore:
-        print("Your win")
-      else:
-        print("Computer win")
+    computerScore = scoreSum(computerDeck)
 
+    addCard = True
+
+    welcome()
+    # while loop to continue game
+    while addCard:
+      print(f"Your cards: {playerDeck}, current score: {playerScore}")
+      print(f"Computer's first card: {computerDeck[0]}")
+    # lose if player > 21
+      if playerScore > 21:
+        addCard = False
+        print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+        print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+        print("You went over. You lose")
+        break
+    # win if 21
+      # elif playerScore == 21:
+      #   addCard = False
+      #   print("Win with a Blackjack")
+      #   break
+
+      addCardString = input("Type 'y' to get another card, type 'n' to pass: ")
+
+      if addCardString == "y":
+        playerDeck.append(newCard())
+        playerScore = scoreSum(playerDeck)
+      elif addCardString == "n":
+        addCard = False
+        while computerScore < 17:
+          computerDeck.append(newCard())
+          computerScore = scoreSum(computerDeck)
+        if computerScore > 21:
+          print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+          print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+          print("Opponent went over. You win")
+          break
+        else:
+          print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+          print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+          if playerScore == computerScore:
+            print("Draw")
+          elif playerScore > computerScore:
+            print("Your win")
+          else:
+            print("Computer win")
+    game()
+
+game()
