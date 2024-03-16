@@ -60,6 +60,7 @@ def game():
     # initialize game
     playerDeck = initialDeck()
     computerDeck = initialDeck()
+    # computerDeck = [11,5]
     # print(playerDeck)
     # print(computerDeck)
     playerScore = scoreSum(playerDeck)
@@ -70,21 +71,24 @@ def game():
     welcome()
     # while loop to continue game
     while addCard:
-      print(f"Your cards: {playerDeck}, current score: {playerScore}")
-      print(f"Computer's first card: {computerDeck[0]}")
     # lose if player > 21
       if playerScore > 21:
-        addCard = False
-        print(f"Your final hand: {playerDeck}, final score: {playerScore}")
-        print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
-        print("You went over. You lose")
-        break
-    # win if 21
-      # elif playerScore == 21:
-      #   addCard = False
-      #   print("Win with a Blackjack")
-      #   break
-
+        # replace 11 with 1
+        if 11 in playerDeck:
+          aIndex = playerDeck.index(11)
+          playerDeck[aIndex] = 1
+          playerScore = scoreSum(playerDeck)
+        # if no 11 in deck to be replaced
+        else:
+        # print cards
+          print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+          print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+          print("You went over. You lose")
+          addCard = False
+          break
+      print(f"Your cards: {playerDeck}, current score: {playerScore}")
+      print(f"Computer's first card: {computerDeck[0]}")
+    # ask for new card
       addCardString = input("Type 'y' to get another card, type 'n' to pass: ")
 
       if addCardString == "y":
@@ -92,23 +96,33 @@ def game():
         playerScore = scoreSum(playerDeck)
       elif addCardString == "n":
         addCard = False
+            # add card to computer in score < 17
         while computerScore < 17:
           computerDeck.append(newCard())
           computerScore = scoreSum(computerDeck)
-        if computerScore > 21:
-          print(f"Your final hand: {playerDeck}, final score: {playerScore}")
-          print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
-          print("Opponent went over. You win")
-          break
+          # check if computer > 21
+          while computerScore > 21:
+            # replace 11 with 1 if any
+            if 11 in computerDeck:
+              aIndex = computerDeck.index(11)
+              computerDeck[aIndex] = 1
+              computerScore = scoreSum(computerDeck)
+            # if no 11 in deck to be replaced and > 21
+            else:
+              print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+              print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+              print("Opponent went over. You win")
+              break          
+
+        print(f"Your final hand: {playerDeck}, final score: {playerScore}")
+        print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
+          # check computerScore vs player if computer < 21
+        if playerScore == computerScore:
+          print("Draw")
+        elif playerScore > computerScore:
+          print("Your win")
         else:
-          print(f"Your final hand: {playerDeck}, final score: {playerScore}")
-          print(f"Computer's final hand: {computerDeck}, final score: {computerScore}")
-          if playerScore == computerScore:
-            print("Draw")
-          elif playerScore > computerScore:
-            print("Your win")
-          else:
-            print("Computer win")
+          print("Computer win")
     game()
 
 game()
