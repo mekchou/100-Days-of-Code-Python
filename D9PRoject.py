@@ -1,4 +1,6 @@
-
+import sys
+sys.path.append(r'C:\Users\MekChou\OneDrive\Code\Udemy\100-Days-of-Code-Python\module')
+from auction_art import logo
 # create empty dict that stores input
 bidData = {}
 
@@ -16,14 +18,15 @@ def highestBid(bidDataDict):
 # create function that asks for input
 def question():
   name = input("What is your name?: ")
-  bid = input("What's your bid?: $")
+  bid = int(input("What's your bid?: $"))
   return (name, bid)
 
 
 # main section
 
 otherBid = True
-
+print(logo)
+# loop over question when other bid
 while otherBid:
   name, bid = question()
   bidInput(name, bid)
@@ -32,6 +35,6 @@ while otherBid:
     otherBid = False
   elif nextBid == 'yes':
     otherBid = True
-
+# calculate max and print result
 maxKey, maxValue = highestBid(bidData)
 print(f"The winner is {maxKey} with a bid of ${maxValue}.")
