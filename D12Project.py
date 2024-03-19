@@ -12,11 +12,11 @@ def difficultyAttempts(difficulty):
 
 
 # function to decide result
-def showResult(num):
-    global attempts
+def showResult(num, answerNum, attempts):
+    # global attempts
     if num == answerNum:
         print(f"You got it! The answer was {answerNum}")
-        return 0
+        return -1
     elif num > answerNum:
         print("Too high.")
         print("Guess again.")
@@ -25,21 +25,24 @@ def showResult(num):
         print("Too low.")
         print("Guess again.")
         attempts -= 1
-    
+    return attempts
 
 
+def game():
+    print("Welcome to the NUmber Guessing Game!")
+    print("I'm thinking of a numebr between 1 and 100.")
+    answerNum = answer()
 
-print("Welcome to the NUmber Guessing Game!")
-print("I'm thinking of a numebr between 1 and 100.")
-answerNum = answer()
+    difficultyLv = input("Type 'easy' or 'hard': ")
+    attempts = difficultyAttempts(difficultyLv)
 
-difficultyLv = input("Type 'easy' or 'hard': ")
-attempts = difficultyAttempts(difficultyLv)
-
-while attempts > 0:
-    print(f"You have {attempts} attempts remaining to guess the number.")
-    guessNum = int(input("Make a guess: "))
-    if showResult(guessNum) == 0:
-        break
-    if attempts == 0:
-        print("You've run out of guesses, you lose.")
+    while attempts > 0:
+        print(f"You have {attempts} attempts remaining to guess the number.")
+        guessNum = int(input("Make a guess: "))
+        attempts = showResult(guessNum, answerNum, attempts)
+        if  attempts == -1:
+            break
+        elif attempts == 0:
+            print("You've run out of guesses, you lose.")
+            
+game()
