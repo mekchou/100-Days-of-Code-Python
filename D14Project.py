@@ -24,41 +24,40 @@ def check(a, b, answer, currentScore):
     else:
         return False
 
+# randompick
 def randomPick():
     return random.choice(data)
 
 
-score = 0
-continueGame = True
-accountA = randomPick()
-accountB = randomPick()
+def game():
+    score = 0
+    continueGame = True
+    accountA = randomPick()
+    accountB = randomPick()
 
-while continueGame:
-    # print logo
-    print(logo)
-    # Generate a random account from the game data
-    if score > 0:
-        print(f"You're right! Current score: {score}.")
-    print("Compare A: " + formatData(accountA))
-    
-    # print vs
-    print(vs)
+    while continueGame:
+        # print logo
+        print(logo)
+        # Generate a random account from the game data
+        if score > 0:
+            print(f"You're right! Current score: {score}.")
+        print("Compare A: " + formatData(accountA))
 
-    print("Against B: " + formatData(accountB))
-    # ask answer
-    answer = input("Who has more followers? Type 'A' or 'B': ")
-    # if correct, add score and prepare next round
-    if check(accountA, accountB, answer, score):
-        score += 1
-        if answer == "B":
-            accountA = accountB
-        accountB = randomPick()
-    else:
-        break
-    
-    
-print(f"Sorry, that's wrong. Final score: {score}")
+        # print vs
+        print(vs)
 
-# compare followers 
-# if correct, B becomes A, repick B, score +1
-# track score
+        print("Against B: " + formatData(accountB))
+        # ask answer
+        answer = input("Who has more followers? Type 'A' or 'B': ")
+        # if correct, add score and prepare next round
+        if check(accountA, accountB, answer, score):
+            score += 1
+            if answer == "B":
+                accountA = accountB
+            accountB = randomPick()
+        else:
+            break
+# print when game ends
+    print(f"Sorry, that's wrong. Final score: {score}")
+
+game()
