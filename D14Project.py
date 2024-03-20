@@ -48,7 +48,7 @@ def game():
 
         print("Against B: " + formatData(accountB))
         # ask answer
-        answer = input("Who has more followers? Type 'A' or 'B': ")
+        answer = input("Who has more followers? Type 'A' or 'B': ").capitalize()
         # if correct, add score and prepare next round
         if check(accountA, accountB, answer, score):
             score += 1
