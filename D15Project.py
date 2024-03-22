@@ -116,8 +116,8 @@ def coffeeMachine():
                     (resources, money) = makeCoffee(coffee, resources, money)
                 else:
                     break
-            else:
-                break
+            # else:
+            #     break
             
         
             
