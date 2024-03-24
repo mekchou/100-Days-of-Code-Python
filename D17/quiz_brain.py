@@ -9,7 +9,8 @@ class QuizBrain:
         self.question_number += 1
         u_answer = input(f"Q.{self.question_number}: {current_question.text} (True/False)?: ")
         
-
+    def still_has_questions(self):
+        return self.question_number < len(self.question_list)
 
 # TODO: asking the questions
 
