@@ -5,8 +5,11 @@ tim = Turtle()
 
 tim.shape("turtle")
 tim.color("red")
-for _ in range(4):
-    tim.forward(100)
-    tim.right(90)
+for num in range(50):
+    tim.forward(10)
+    if num % 2 == 0:
+        tim.up()
+    else:
+        tim.down()
 
 input("Press Enter to exit...")
