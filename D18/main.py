@@ -25,8 +25,9 @@ def rbg_list(color_obj):
     return rgb
 
 colors = cg.extract(r"V:\100-Days-of-Code-Python\data\HirstSpot.jpg",40)
+color_list = rbg_list(colors)
+# print(rbg_list(colors))
 
-print(rbg_list(colors))
 
 
 # print(colors)
