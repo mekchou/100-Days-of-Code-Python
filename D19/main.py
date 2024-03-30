@@ -38,10 +38,10 @@ def main():
     while is_race_on:
         for turtle in all_turtles:
             move_forwards(turtle)
-            if turtle.xcor() >= 240:
+            if turtle.xcor() >= 230:
                 winner = turtle
-                print(f"{colors[all_turtles.index(winner)]} turtle is the winner!")
-                if user_bet == colors[all_turtles.index(winner)]:
+                print(f"{winner.pencolor()} turtle is the winner!")
+                if user_bet == winner.pencolor():
                     print("Your guess was correct!")
                 else: 
                     print("Your guess was incorrect!")
