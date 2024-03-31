@@ -1,10 +1,11 @@
 from turtle import Screen, Turtle
+import time
 
 screen = Screen()
 screen.setup(width = 600, height = 600)
 screen.bgcolor("black")
 screen.title("Snake Game")
-
+screen.tracer(0)
 
 snake = []
 game_is_on = True
@@ -16,7 +17,7 @@ def snake_body(snake_len):
         new_segment = Turtle(shape = "square")
         new_segment.color("white")
         new_segment.penup()
-        new_segment.speed(0)
+        # new_segment.speed(5)
         # new_segment.pensize(10)
         starting_positions.append((0 - turtle_index * 20, 0))
         # print(starting_positions[turtle_index])
@@ -29,6 +30,8 @@ def snake_body(snake_len):
 # TODO: move the snake
 def move_snake(snake):
     while game_is_on:
+        screen.update()
+        time.sleep(0.1)
         for seg in snake:
             seg.forward(20)
 
@@ -50,6 +53,7 @@ def move_snake(snake):
 # TODO: detect collision with tail
 
 snake_body(3)
+screen.update()
 move_snake(snake)
 
 screen.exitonclick()
