@@ -1,6 +1,10 @@
 from turtle import Turtle
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
 
 
 class Snake:
@@ -8,6 +12,7 @@ class Snake:
     def __init__(self):
         self.snake = []
         self.create_snake()
+        self.head = self.snake[0]
         
     def create_snake(self):
         for position in STARTING_POSITIONS:
@@ -24,13 +29,25 @@ class Snake:
             new_y = self.snake[seg_num - 1].ycor()
             self.snake[seg_num].goto(new_x, new_y)
 
-        self.snake[0].forward(MOVE_DISTANCE)
+        self.head.forward(MOVE_DISTANCE)
 
 
     # TODO: control the snake
-
-
-
+    def up(self):
+        if self.head.heading() != (UP or DOWN):
+            self.head.setheading(UP)
+    
+    def down(self):
+        if self.head.heading() != (UP or DOWN):
+            self.head.setheading(DOWN)
+        
+    def left(self):
+        if self.head.heading() != (LEFT or RIGHT):
+            self.head.setheading(LEFT)
+        
+    def right(self):
+        if self.head.heading() != (LEFT or RIGHT):
+            self.head.setheading(RIGHT)
 
     # TODO: detect collision with food
 
