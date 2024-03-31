@@ -10,13 +10,15 @@ screen.title("Snake Game")
 
 # TODO: create a snake body
 def snake_body(snake_len):
+    starting_positions = []
     for turtle_index in range(snake_len):
         new_turtle = Turtle(shape = "square")
         new_turtle.color("white")
         new_turtle.pensize(10)
-        # new_turtle.resizemode("user")
-        # new_turtle.shapesize(stretch_wid = 10, stretch_len = 10)
-        new_turtle.teleport(x = 0 - turtle_index * 20, y = 0)
+        starting_positions.append((0 - turtle_index * 20, 0))
+        # print(starting_positions[turtle_index])
+        # new_turtle.teleport(starting_positions[turtle_index])
+        new_turtle.goto(starting_positions[turtle_index])
         new_turtle.penup
 
 
