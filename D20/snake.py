@@ -16,11 +16,7 @@ class Snake:
         
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            new_segment = Turtle(shape = "square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.snake.append(new_segment)
+            self.add_segment(position)
 
     # TODO: move the snake
     def move(self):
@@ -49,13 +45,12 @@ class Snake:
         if self.head.heading() != LEFT and  self.head.heading() != RIGHT:
             self.head.setheading(RIGHT)
 
-    # TODO: detect collision with food
-
-
-    # TODO: create a scoreboard
-
-
-    # TODO: detect collision with wall
-
-
-    # TODO: detect collision with tail
+    def add_segment(self, position):
+        new_segment = Turtle(shape = "square")
+        new_segment.color("white")
+        new_segment.penup()
+        new_segment.goto(position)
+        self.snake.append(new_segment)
+        
+    def extend(self):
+        self.add_segment(self.snake[-1].position())
