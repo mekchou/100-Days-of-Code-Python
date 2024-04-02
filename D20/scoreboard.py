@@ -14,9 +14,10 @@ class Scoreboard(Turtle):
         self.print_score()
 
         
-    def add_score(self):
+    def increase_score(self):
         self.current_score += 1
+        self.clear()
+        self.print_score()
     
     def print_score(self):
-        self.clear()
         self.write(f"Score: {self.current_score}", font = ("Arial", 14, "normal"), align = "center")
