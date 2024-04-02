@@ -34,19 +34,19 @@ class Snake:
 
     # TODO: control the snake
     def up(self):
-        if self.head.heading() != (UP or DOWN):
+        if self.head.heading() != UP and  self.head.heading() != DOWN:
             self.head.setheading(UP)
     
     def down(self):
-        if self.head.heading() != (UP or DOWN):
+        if self.head.heading() != UP and  self.head.heading() != DOWN:
             self.head.setheading(DOWN)
         
     def left(self):
-        if self.head.heading() != (LEFT or RIGHT):
+        if self.head.heading() != LEFT and  self.head.heading() != RIGHT:
             self.head.setheading(LEFT)
         
     def right(self):
-        if self.head.heading() != (LEFT or RIGHT):
+        if self.head.heading() != LEFT and  self.head.heading() != RIGHT:
             self.head.setheading(RIGHT)
 
     # TODO: detect collision with food
