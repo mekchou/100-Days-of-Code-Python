@@ -1,4 +1,7 @@
 from turtle import Turtle
+ALIGNMENT = "center"
+FONT = ("Arial", 14, "normal")
+
 
 class Scoreboard(Turtle):
     
@@ -20,4 +23,4 @@ class Scoreboard(Turtle):
         self.print_score()
     
     def print_score(self):
-        self.write(f"Score: {self.current_score}", font = ("Arial", 14, "normal"), align = "center")
+        self.write(f"Score: {self.current_score}", font = FONT, align = ALIGNMENT)
