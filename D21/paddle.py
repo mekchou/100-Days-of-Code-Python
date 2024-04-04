@@ -20,20 +20,11 @@ class Paddle(Turtle):
             new_segment.penup()
             new_segment.goto((self.x, position))
             self.paddle.append(new_segment)
-            
-    def move(self):
-        for seg_num in range(len(self.paddle) - 1, 0, -1): 
-            new_x = self.snake[seg_num - 1].xcor()
-            new_y = self.snake[seg_num - 1].ycor()
-            self.snake[seg_num].goto(self.x, new_y)
 
     def up(self):
         for segment in range(len(self.paddle)):
             new_y = self.paddle[segment].ycor() + MOVE_DISTANCE
-            self.paddle[segment].goto((self.x, new_y))
-            # self.paddle[segment].setheading(UP)
-            # self.paddle[segment].forward(MOVE_DISTANCE)
-            
+            self.paddle[segment].goto((self.x, new_y))         
         
     def down(self):
         for segment in range(len(self.paddle)):
