@@ -16,9 +16,12 @@ screen.listen()
 # scoreboard = Scoreboard()
 
 
-paddle = Paddle(500)
-screen.onkeypress(key = "Up", fun = paddle.up)
-screen.onkeypress(key = "Down", fun = paddle.down)
+paddle1 = Paddle(-500)
+paddle2 = Paddle(500)
+screen.onkeypress(key = "w", fun = paddle1.up)
+screen.onkeypress(key = "s", fun = paddle1.down)
+screen.onkeypress(key = "Up", fun = paddle2.up)
+screen.onkeypress(key = "Down", fun = paddle2.down)
 
 game_is_on = True
 
