@@ -1,5 +1,5 @@
 from turtle import Turtle
-STARTING_POSITIONS = [-30, -10, 10, 30]
+STARTING_POSITIONS = 0
 MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
@@ -9,24 +9,25 @@ DOWN = 270
 
 class Paddle(Turtle):
     def __init__(self, x):
-        self.paddle = []
+        super().__init__()
         self.x = x
-        self.create_paddle()
+        self.shape("square")
+        self.color("white")
+        self.penup()
+        self.shapesize(stretch_wid = 5, stretch_len = 1)
+        self.goto((self.x, STARTING_POSITIONS))
                 
-    def create_paddle(self):
-        for position in STARTING_POSITIONS:
-            new_segment = Turtle(shape = "square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto((self.x, position))
-            self.paddle.append(new_segment)
+    # def create_paddle(self):
+    #     new_segment = Turtle(shape = "square")
+    #     new_segment.color("white")
+    #     new_segment.penup()
+    #     new_segment.goto((self.x, STARTING_POSITIONS))
+    #     self.paddle.append(new_segment)
 
     def up(self):
-        for segment in range(len(self.paddle)):
-            new_y = self.paddle[segment].ycor() + MOVE_DISTANCE
-            self.paddle[segment].goto((self.x, new_y))         
+        new_y = self.ycor() + MOVE_DISTANCE
+        self.goto((self.x, new_y))         
         
     def down(self):
-        for segment in range(len(self.paddle)):
-            new_y = self.paddle[segment].ycor() - MOVE_DISTANCE
-            self.paddle[segment].goto((self.x, new_y))
+        new_y = self.ycor() - MOVE_DISTANCE
+        self.goto((self.x, new_y))       
