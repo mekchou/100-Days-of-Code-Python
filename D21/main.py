@@ -1,8 +1,8 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
-# from food import Food
+from ball import Ball
 # from scoreboard import Scoreboard
-# import time
+import time
 
 screen = Screen()
 screen.setup(width = 1200, height = 800)
@@ -23,11 +23,14 @@ screen.onkeypress(key = "s", fun = paddle1.down)
 screen.onkeypress(key = "Up", fun = paddle2.up)
 screen.onkeypress(key = "Down", fun = paddle2.down)
 
+ball = Ball()
+
 game_is_on = True
 
 while game_is_on:
+    time.sleep(0.1)
     screen.update()
-    # time.sleep(0.1)
+    ball.move()
 
 # TODO: set up main screen
 
