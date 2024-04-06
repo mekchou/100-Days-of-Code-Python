@@ -9,13 +9,17 @@ class Ball(Turtle):
         self.shape("circle")
         self.color("white")
         self.penup()
-        self.speed(1)
+        # self.speed(5)
         self.goto(STARTING_POSITIONS)
+        self.x_move = MOVE_DISTANCE
+        self.y_move = MOVE_DISTANCE
 
     def move(self):
-        new_x = self.xcor() + MOVE_DISTANCE
-        new_y = self.ycor() + MOVE_DISTANCE
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
         self.goto(new_x, new_y)
         # self.setheading(STARTING_HEADING)
         # self.forward(MOVE_DISTANCE)
         
+    def bounce(self):
+        self.y_move *= -1

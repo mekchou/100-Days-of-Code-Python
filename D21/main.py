@@ -4,8 +4,11 @@ from ball import Ball
 # from scoreboard import Scoreboard
 import time
 
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 800
+
 screen = Screen()
-screen.setup(width = 1200, height = 800)
+screen.setup(width = SCREEN_WIDTH, height = SCREEN_HEIGHT)
 screen.bgcolor("black")
 screen.title("Pong")
 screen.tracer(0)
@@ -28,9 +31,14 @@ ball = Ball()
 game_is_on = True
 
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(0.05)
     screen.update()
     ball.move()
+
+# detect collision with wall
+    if ball.ycor() > (SCREEN_HEIGHT/2 - 20) or ball.ycor() < (-SCREEN_HEIGHT/2 + 20):
+        ball.bounce()
+
 
 # TODO: set up main screen
 
