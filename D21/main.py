@@ -31,13 +31,19 @@ ball = Ball()
 game_is_on = True
 
 while game_is_on:
-    time.sleep(0.05)
+    time.sleep(0.1)
     screen.update()
     ball.move()
 
 # detect collision with wall
     if ball.ycor() > (SCREEN_HEIGHT/2 - 20) or ball.ycor() < (-SCREEN_HEIGHT/2 + 20):
-        ball.bounce()
+        ball.bounce_y()
+
+# detect collision with paddle
+    if ball.xcor() > (paddle2.xcor() - 20) and ball.distance(paddle2) < (100**2 + 20**2)**0.5:
+        ball.bounce_x()
+    elif ball.xcor() < (paddle1.xcor() + 20) and ball.distance(paddle1) < (100**2 + 20**2)**0.5:
+        ball.bounce_x()
 
 
 # TODO: set up main screen
