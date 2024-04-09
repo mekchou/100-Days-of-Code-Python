@@ -45,6 +45,14 @@ while game_is_on:
     elif ball.xcor() < (paddle1.xcor() + 20) and ball.distance(paddle1) < (50**2 + 20**2)**0.5:
         ball.bounce_x()
 
+# detect if ball out of bound
+    if ball.xcor() > SCREEN_WIDTH/2:
+        ball.reset_position()
+        # ball.__init__()
+        # ball.bounce_x()
+    elif ball.xcor() < -SCREEN_WIDTH/2:
+        ball.reset_position()
+        # ball.__init__()
 
 # TODO: set up main screen
 
