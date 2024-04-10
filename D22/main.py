@@ -19,4 +19,14 @@ while game_is_on:
     screen.update()
 
 
+
+# TODO: build player class with move ability
+# TODO: build car class with random color and moving ability
+# TODO: create random car and move to left
+# TODO: build scoreboard
+# TODO: reset player when reaching finish line
+# TODO: car speed up when reaching finish line
+# TODO: scoreboard +1 when reaching finish line
+
+
 screen.exitonclick()
