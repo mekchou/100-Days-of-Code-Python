@@ -33,7 +33,8 @@ scoreboard2 = Scoreboard(100)
 
 game_is_on = True
 
-speedfactor = 0.1
+initialspeed = 0.1
+speedfactor = initialspeed
 
 while game_is_on:
     time.sleep(speedfactor)
@@ -57,11 +58,11 @@ while game_is_on:
     if ball.xcor() > SCREEN_WIDTH/2:
         ball.reset_position()
         scoreboard1.increase_score()
-        speedfactor = 0.1
+        speedfactor = initialspeed
     elif ball.xcor() < -SCREEN_WIDTH/2:
         ball.reset_position()
         scoreboard2.increase_score()
-        speedfactor = 0.1
+        speedfactor = initialspeed
 
 # TODO: set up main screen
 
