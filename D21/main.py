@@ -1,7 +1,7 @@
-from turtle import Screen, Turtle
+from turtle import Screen, Turtle   
 from paddle import Paddle
 from ball import Ball
-# from scoreboard import Scoreboard
+from scoreboard import Scoreboard
 import time
 
 SCREEN_WIDTH = 1200
@@ -28,6 +28,9 @@ screen.onkeypress(key = "Down", fun = paddle2.down)
 
 ball = Ball()
 
+scoreboard1 = Scoreboard(-100)
+scoreboard2 = Scoreboard(100)
+
 game_is_on = True
 
 while game_is_on:
@@ -48,11 +51,10 @@ while game_is_on:
 # detect if ball out of bound
     if ball.xcor() > SCREEN_WIDTH/2:
         ball.reset_position()
-        # ball.__init__()
-        # ball.bounce_x()
+        scoreboard1.increase_score()
     elif ball.xcor() < -SCREEN_WIDTH/2:
         ball.reset_position()
-        # ball.__init__()
+        scoreboard2.increase_score()
 
 # TODO: set up main screen
 
