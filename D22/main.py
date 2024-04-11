@@ -1,6 +1,6 @@
 import time
 from turtle import Screen
-from player import Player, FINISH_LINE_Y
+from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
 
@@ -23,14 +23,14 @@ while game_is_on:
     car_manager.move(scoreboard.level)
 
 # detect car going into finish line
-    if player.ycor() > FINISH_LINE_Y:
+    if player.is_at_finish_line():
         player.reset_position()
         scoreboard.next_level()
 
 # detect collision with car
     for car in car_manager.all_cars:
-        hit_distance = 30
-        if player.ycor() >= car.ycor() - 20 and player.distance(car) < hit_distance:
+        hit_distance = 20
+        if player.distance(car) < hit_distance:
             scoreboard.game_over()
             game_is_on = False
 
