@@ -24,9 +24,11 @@ while game_is_on:
 # TODO: build car class with random color and moving ability
 # TODO: create random car and move to left
 # TODO: build scoreboard
+# TODO: crete gameover in scoreboard
 # TODO: reset player when reaching finish line
 # TODO: car speed up when reaching finish line
 # TODO: scoreboard +1 when reaching finish line
+# TODO: detect collission with car
 
 
 screen.exitonclick()
