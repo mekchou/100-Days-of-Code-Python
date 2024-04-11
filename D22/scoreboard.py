@@ -19,6 +19,7 @@ class Scoreboard(Turtle):
         
     def next_level(self):
         self.level += 1
+        self.clear()
         self.print_score()
         
     def game_over(self):
