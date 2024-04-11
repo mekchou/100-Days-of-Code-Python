@@ -1,49 +1,79 @@
-import time
-from turtle import Screen
-from player import Player
-from car_manager import CarManager
+from turtle import Screen, Turtle   
+from paddle import Paddle
+from ball import Ball
 from scoreboard import Scoreboard
+import time
+
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 800
 
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width = SCREEN_WIDTH, height = SCREEN_HEIGHT)
+screen.bgcolor("black")
+screen.title("Pong")
 screen.tracer(0)
-
-player = Player()
-car_manager = CarManager()
-scoreboard = Scoreboard()
-
 screen.listen()
-screen.onkeypress(key = "Up", fun = player.move)
+
+# snake = Snake()
+# food = Food()
+# scoreboard = Scoreboard()
+
+
+paddle1 = Paddle(-500)
+paddle2 = Paddle(500)
+screen.onkeypress(key = "w", fun = paddle1.up)
+screen.onkeypress(key = "s", fun = paddle1.down)
+screen.onkeypress(key = "Up", fun = paddle2.up)
+screen.onkeypress(key = "Down", fun = paddle2.down)
+
+ball = Ball()
+
+scoreboard1 = Scoreboard(-100)
+scoreboard2 = Scoreboard(100)
 
 game_is_on = True
+
+
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(ball.movespeed)
     screen.update()
-    car_manager.create_car()
-    car_manager.move(scoreboard.level)
+    ball.move()
 
-# detect car going into finish line
-    if player.is_at_finish_line():
-        player.reset_position()
-        scoreboard.next_level()
+# detect collision with wall
+    if ball.ycor() > (SCREEN_HEIGHT/2 - 20) or ball.ycor() < (-SCREEN_HEIGHT/2 + 20):
+        ball.bounce_y()
 
-# detect collision with car
-    for car in car_manager.all_cars:
-        hit_distance = 20
-        if player.distance(car) < hit_distance:
-            scoreboard.game_over()
-            game_is_on = False
+# detect collision with paddle
+    if ball.xcor() > (paddle2.xcor() - 30) and ball.distance(paddle2) < 50:
+        ball.bounce_x()
+    elif ball.xcor() < (paddle1.xcor() + 30) and ball.distance(paddle1) < 50:
+        ball.bounce_x()
+
+    
+# detect if ball out of bound
+    if ball.xcor() > SCREEN_WIDTH/2:
+        ball.reset_position()
+        scoreboard1.increase_score()
+    elif ball.xcor() < -SCREEN_WIDTH/2:
+        ball.reset_position()
+        scoreboard2.increase_score()
+
+# TODO: set up main screen
+
+# TODO: create paddle class that responds to key press
+
+# TODO: create 2 paddles
 
 
-# TODO: build player class with move ability
-# TODO: build car class with random color and moving ability
-# TODO: create random car and move to left
-# TODO: build scoreboard
-# TODO: crete gameover in scoreboard
-# TODO: reset player when reaching finish line
-# TODO: car speed up when reaching finish line
-# TODO: scoreboard +1 when reaching finish line
-# TODO: detect collission with car
+# TODO: create ball class including ball move
+
+# TODO: add ball bouncing logic
+
+# TODO: detect ball collisions with paddle
+
+# TODO: detect ball goes out of bound
+
+# TODO: create scoreboard class
 
 
 screen.exitonclick()
