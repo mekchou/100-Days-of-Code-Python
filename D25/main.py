@@ -12,7 +12,7 @@ answers = answer.Answer()
 dataframe = pd.read_csv(r"data\50_states.csv")
 
 # game_is_on = True
-score = 0
+# score = 0
 
 while len(answers.all_answers) < 50:
 
@@ -23,12 +23,12 @@ while len(answers.all_answers) < 50:
     if answer_state in all_states:
         state_data = dataframe[dataframe["state"] == answer_state]
         answers.print_answer(state_data["state"].item(), int(state_data["x"].item()), int(state_data["y"].item())) 
-        score += 1
+        # score += 1
         
     elif answer_state == "Exit":
         break
 
-print(f"Your score is {score}")
+print(f"Your score is {len(answers.all_answers)}")
 
 
 
