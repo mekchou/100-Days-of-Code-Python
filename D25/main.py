@@ -11,10 +11,10 @@ answers = answer.Answer()
 
 dataframe = pd.read_csv(r"data\50_states.csv")
 
-game_is_on = True
+# game_is_on = True
 score = 0
 
-while game_is_on:
+while len(answers.all_answers) < 50:
 
     answer_state = screen.textinput(title = "Guess the State", prompt = "What's anothe state's name? Type exit to Exit the game").title()
     all_states = dataframe["state"].to_list()
@@ -22,12 +22,13 @@ while game_is_on:
     # if answer state is one of the states
     if answer_state in all_states:
         state_data = dataframe[dataframe["state"] == answer_state]
-        answers.print_answer(state_data["state"].item(), int(state_data["x"]), int(state_data["y"])) 
+        answers.print_answer(state_data["state"].item(), int(state_data["x"].item()), int(state_data["y"].item())) 
         score += 1
         
     elif answer_state == "Exit":
-        game_is_on = False
-        print(f"Your score is {score}")
+        break
+
+print(f"Your score is {score}")
 
 
 
