@@ -1,4 +1,8 @@
 import tkinter as tk
+from tkinter import messagebox
+import string as string
+import random as rand
+
 FONT_NAME = "Courier"
 FONT_SIZE = 8
 
@@ -6,14 +10,48 @@ FONT_SIZE = 8
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_password():
+    password_entry.delete(0, "end")
+    symbol = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ';', ':', "'", '"', '<', '>', ',', '.', '/', '?']
+    nr_letters = rand.randint(8,10)
+    nr_numbers = rand.randint(2,4)
+    nr_symbols = rand.randint(2,4)
+
+    pwList = []
+
+    pw_letters = [rand.choice(string.ascii_letters) for _ in range(nr_letters)]
+    pw_symbols = [rand.choice(symbol) for _ in range(nr_symbols)]
+    pw_numbers = [str(rand.randint(0,9)) for _ in range(nr_numbers)]
+    pwList = pw_letters + pw_symbols + pw_symbols
+
+    rand.shuffle(pwList)
+    pw = "".join(pwList)
+
+    password_entry.insert(tk.END, pw)
+
+# print(f"Your password is: {pw}")
+
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_password():
-    with open("D29\passwords.txt", mode = "a") as data:
-        content = f"{website_entry.get()} | {username_entry.get()} | {password_entry.get()}\n"
-        data.write(content)
-    website_entry.delete(0, "end")
-    password_entry.delete(0, "end")
+    website = website_entry.get()
+    username = username_entry.get()
+    password = password_entry.get()
+    
+    # notification for empty field
+    if len(website) == 0 or len(username) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
+    else:
+    
+    # popup for confirmation
+        proceed = messagebox.askokcancel(title=website, message=f"These are the details entered: \nUsername: {username}\nPassword: {password} \nIs it ok to save?")
+        if proceed:
+            with open("D29\passwords.txt", mode = "a") as data:
+                content = f"{website} | {username} | {password}\n"
+                data.write(content)
+            website_entry.delete(0, "end")
+            password_entry.delete(0, "end")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -50,7 +88,7 @@ username_entry.insert(tk.END, "mek.chou@gmail.com")
 password_entry = tk.Entry(width=31)
 password_entry.grid(column=1, row=3, sticky="w")
 
-generate_password_button = tk.Button(text="Generate Password")
+generate_password_button = tk.Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(column=2, row=3, sticky="w")
 
 add_button = tk.Button(text="Add", width=44, command=add_password)
