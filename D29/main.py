@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import string as string
 import random as rand
+import pyperclip
 
 FONT_NAME = "Courier"
 FONT_SIZE = 8
@@ -28,6 +29,7 @@ def generate_password():
     pw = "".join(pwList)
 
     password_entry.insert(tk.END, pw)
+    pyperclip.copy(pw)
 
 # print(f"Your password is: {pw}")
 
