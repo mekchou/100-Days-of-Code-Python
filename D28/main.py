@@ -11,8 +11,20 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
+def reset_timer():
+    global reps
+    window.after_cancel(timer)
+    # reset timer
+    canvas.itemconfig(timer_text, text = "00:00")
+    # reset timer_label
+    timer_label.config(text="Timer")
+    # reset check_marks
+    check_label.config(text="")
+    # reset reps
+    reps = 0
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
@@ -26,7 +38,7 @@ def start_timer():
     # while reps <= 8:
     if reps % 2 == 1:
         count_down(work_sec)
-        timer_label.config(text="Work", fg=GREEN)
+        timer_label.config(text="Work", fg=GREEN)  
     elif reps % 8 == 0:
         count_down(long_break_sec)
         timer_label.config(text="Break", fg=RED)
@@ -38,7 +50,7 @@ def start_timer():
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 def count_down(count):
-    
+    global timer
     count_min = math.floor(count/60)
     count_sec = count % 60
     
@@ -49,9 +61,16 @@ def count_down(count):
     
     canvas.itemconfig(timer_text, text = f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(10, count_down, count - 1)
+        timer = window.after(1, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+        work_sessions = math.floor(reps/2)
+        for _ in range(work_sessions):
+            marks += "✔"
+            check_label.config(text=marks)
+        
+        
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = tkinter.Tk()
@@ -69,13 +88,13 @@ canvas.grid(column=1, row=1)
 start_button = tkinter.Button(text="Start", command=start_timer)
 start_button.grid(column=0, row=2)
 
-reset_button = tkinter.Button(text="Reset")
+reset_button = tkinter.Button(text="Reset", command=reset_timer)
 reset_button.grid(column=2, row=2)
 
 timer_label = tkinter.Label(text="Timer", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 35, "bold"))
 timer_label.grid(column=1, row=0)
 
-check_label = tkinter.Label(text="✔", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 12, "bold"))
+check_label = tkinter.Label(fg=GREEN, bg=YELLOW, font=(FONT_NAME, 12, "bold"))
 check_label.grid(column=1, row=3)
 
 
