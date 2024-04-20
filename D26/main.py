@@ -10,13 +10,19 @@ phonetic_dict = {row.letter: row.code for (index, row) in dataframe.iterrows()}
 
 # TODO 2. Creat a list of the phonetic code words from a word that the user inputs
 
-user_input = input("Input word to be converted to phonetic:\n").upper()
-# user_input = "asd".upper()
-result = [phonetic_dict[letter] for letter in user_input]
-# result = [letter for letter in user_input_list]
-print(result)
 
+def generate_phonetic():
+    user_input = input("Input word to be converted to phonetic:\n").upper()
+# error handling
+    try:
+        result = [phonetic_dict[letter] for letter in user_input]
+    except KeyError:
+        print("Sorry, only letters in the alphabat please.")
+        generate_phonetic()
+    else:
+        print(result)
 
+generate_phonetic()
 
 
 
