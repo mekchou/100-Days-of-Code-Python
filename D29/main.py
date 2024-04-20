@@ -74,6 +74,11 @@ def add_password():
                 website_entry.delete(0, "end")
                 password_entry.delete(0, "end")
 
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def search_password():
+    pass
+
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -98,7 +103,7 @@ username_label.grid(column=0, row=2)
 password_label = tk.Label(text="Password:", font=(FONT_NAME, FONT_SIZE))
 password_label.grid(column=0, row=3)
 
-website_entry = tk.Entry(width=52)
+website_entry = tk.Entry(width=31)
 website_entry.grid(column=1, row=1, columnspan=2, sticky="w")
 website_entry.focus()
 
@@ -109,12 +114,14 @@ username_entry.insert(tk.END, "mek.chou@gmail.com")
 password_entry = tk.Entry(width=31)
 password_entry.grid(column=1, row=3, sticky="w")
 
-generate_password_button = tk.Button(text="Generate Password", command=generate_password)
+generate_password_button = tk.Button(text="Generate Password", width=15, command=generate_password)
 generate_password_button.grid(column=2, row=3, sticky="w")
 
 add_button = tk.Button(text="Add", width=44, command=add_password)
 add_button.grid(column=1, row=4, columnspan=2, sticky="w")
 
+search_button = tk.Button(text="Search", width=15,command=search_password)
+search_button.grid(column=2, row=1, sticky="w")
 
 
 
