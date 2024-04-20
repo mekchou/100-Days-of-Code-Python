@@ -76,8 +76,19 @@ def add_password():
 
 # ---------------------------- SEARCH PASSWORD ------------------------------- #
 def search_password():
-    pass
-
+    website = website_entry.get()
+    try:
+        with open("D29\passwords.json", mode = "r") as data_file:
+            data = json.load(data_file)
+            username = data[website]["username"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Usernamd: {username}\nPassword: {password}")
+            # pass
+    except FileNotFoundError:
+        messagebox.showinfo(title="Oops", message="There's no password saved in password manager")
+    except KeyError:
+        messagebox.showinfo(title=website, message=f"There's no password saved for {website}")
+        
 
 
 # ---------------------------- UI SETUP ------------------------------- #
