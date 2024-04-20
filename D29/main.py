@@ -3,6 +3,7 @@ from tkinter import messagebox
 import string as string
 import random as rand
 import pyperclip
+import json
 
 FONT_NAME = "Courier"
 FONT_SIZE = 8
@@ -40,6 +41,13 @@ def add_password():
     website = website_entry.get()
     username = username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "username": username,
+            "password": password,
+        }
+    }
+    
     
     # notification for empty field
     if len(website) == 0 or len(username) == 0 or len(password) == 0:
@@ -49,9 +57,17 @@ def add_password():
     # popup for confirmation
         proceed = messagebox.askokcancel(title=website, message=f"These are the details entered: \nUsername: {username}\nPassword: {password} \nIs it ok to save?")
         if proceed:
-            with open("D29\passwords.txt", mode = "a") as data:
-                content = f"{website} | {username} | {password}\n"
-                data.write(content)
+                # content = f"{website} | {username} | {password}\n"
+                # data.write(content)
+            with open("D29\passwords.json", mode = "r") as data_file:
+                # read old data
+                data = json.load(data_file)
+                # updating old data with new one
+                data.update(new_data)
+            with open("D29\passwords.json", mode = "w") as data_file:
+                # saving updated data
+                json.dump(data, data_file, indent=4)
+                
             website_entry.delete(0, "end")
             password_entry.delete(0, "end")
 
