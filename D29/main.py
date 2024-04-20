@@ -70,9 +70,9 @@ def add_password():
                     data.update(new_data)
                     # saving updated data
                     json.dump(data, data_file, indent=4)
-                
-            website_entry.delete(0, "end")
-            password_entry.delete(0, "end")
+            finally:
+                website_entry.delete(0, "end")
+                password_entry.delete(0, "end")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
