@@ -57,16 +57,19 @@ def add_password():
     # popup for confirmation
         proceed = messagebox.askokcancel(title=website, message=f"These are the details entered: \nUsername: {username}\nPassword: {password} \nIs it ok to save?")
         if proceed:
-                # content = f"{website} | {username} | {password}\n"
-                # data.write(content)
-            with open("D29\passwords.json", mode = "r") as data_file:
+            try:
+                with open("D29\passwords.json", mode = "r") as data_file:
                 # read old data
-                data = json.load(data_file)
+                    data = json.load(data_file)
                 # updating old data with new one
-                data.update(new_data)
-            with open("D29\passwords.json", mode = "w") as data_file:
-                # saving updated data
-                json.dump(data, data_file, indent=4)
+                    data.update(new_data)
+            except FileNotFoundError:
+                with open("D29\passwords.json", mode = "w") as data_file:
+                    json.dump(new_data, data_file, indent=4)
+            else:
+                with open("D29\passwords.json", mode = "w") as data_file:
+                    # saving updated data
+                    json.dump(data, data_file, indent=4)
                 
             website_entry.delete(0, "end")
             password_entry.delete(0, "end")
