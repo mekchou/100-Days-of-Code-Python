@@ -61,13 +61,13 @@ def add_password():
                 with open("D29\passwords.json", mode = "r") as data_file:
                 # read old data
                     data = json.load(data_file)
-                # updating old data with new one
-                    data.update(new_data)
             except FileNotFoundError:
                 with open("D29\passwords.json", mode = "w") as data_file:
                     json.dump(new_data, data_file, indent=4)
             else:
                 with open("D29\passwords.json", mode = "w") as data_file:
+                # updating old data with new one
+                    data.update(new_data)
                     # saving updated data
                     json.dump(data, data_file, indent=4)
                 
