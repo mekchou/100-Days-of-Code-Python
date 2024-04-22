@@ -8,7 +8,7 @@ TITLE_FONT_SIZE = 40
 TITLE_FONT_STYLE = "italic"
 WORD_FONT_SIZE = 60
 WORD_FONT_STYLE = "bold"
-
+timer = None
 
 # create new flash cards
 # read csv
@@ -21,14 +21,27 @@ data_dict = dataframe.to_dict(orient="records")
 # pick random french word and translation into flashcard
 
 def next_word():
-    current_card = rand.choice(data_dict)
-    # new_random_word = current_card["French"]
-    canvas.itemconfig(card_title, text = "French")
-    canvas.itemconfig(card_word, text = current_card["French"])
-    # print(new_random_word)
+    try:
+        window.after_cancel(timer)
+    finally:
+        current_card = rand.choice(data_dict)
+        canvas.itemconfig(card_title, text = "French")
+        canvas.itemconfig(card_word, text = current_card["French"])
+        flip_card(0, current_card)
 
 # flip the card
-
+def flip_card(count, current_card):
+    global timer
+    timer = window.after(3000,flip_card, count + 1, current_card)
+    if count % 2 == 0:
+        canvas.itemconfig(card_image, image = card_front)
+        canvas.itemconfig(card_title, text= "French")
+        canvas.itemconfig(card_word, text= current_card["French"])
+        # next_word()
+    else:
+        canvas.itemconfig(card_image, image = card_back)
+        canvas.itemconfig(card_title, text= "English")
+        canvas.itemconfig(card_word, text= current_card["English"])
 
 
 # UI setup
@@ -36,9 +49,12 @@ window = tk.Tk()
 window.title("Flashy")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 
+
+
 canvas = tk.Canvas(width=800, height=526)
 card_front = tk.PhotoImage(file="images\card_front.png")
-canvas.create_image(400,263,image = card_front)
+card_back = tk.PhotoImage(file="images\card_back.png")
+card_image = canvas.create_image(400,263,image = card_front)
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
 card_title = canvas.create_text(400, 150, text= "Title", font=(FONT, TITLE_FONT_SIZE, TITLE_FONT_STYLE))
 card_word = canvas.create_text(400, 263, text= "Word", font=(FONT, WORD_FONT_SIZE, WORD_FONT_STYLE))
@@ -61,5 +77,5 @@ wrong_image = tk.PhotoImage(file=r"images\wrong.png")
 wrong_button = tk.Button(image=wrong_image, highlightthickness=0, command=next_word)
 wrong_button.grid(column=0, row=1)
 
-
+# flip_card(0)
 window.mainloop()
