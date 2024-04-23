@@ -37,11 +37,17 @@ def flip_card():
 
 # remove word when click right button
 def right_word():
-    data_dict.remove(current_card)
+    if current_card in data_dict:
+        data_dict.remove(current_card)
+    save_file()
     next_word()
 
 def wrong_word():
     next_word()
+
+def save_file():
+    new_dataframe = pd.DataFrame(data_dict)
+    new_dataframe.to_csv("D31/words_to_learn.csv", index = False)
 
 
 
