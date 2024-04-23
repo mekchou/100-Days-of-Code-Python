@@ -35,6 +35,15 @@ def flip_card():
     canvas.itemconfig(card_title, text= "English", fill="white")
     canvas.itemconfig(card_word, text= current_card["English"], fill="white")
 
+# remove word when click right button
+def right_word():
+    data_dict.remove(current_card)
+    next_word()
+
+def wrong_word():
+    next_word()
+
+
 
 # UI setup
 window = tk.Tk()
@@ -56,18 +65,13 @@ card_word = canvas.create_text(400, 263, text= "Word", font=(FONT, WORD_FONT_SIZ
 
 canvas.grid(column=0, row=0, columnspan=2)
 
-# TITLE_label = tk.Label(text = "French", font=(FONT, TITLE_FONT_SIZE, TITLE_FONT_STYLE), bg="white")
-# TITLE_label.place(x=400, y=150, anchor="center")
-
-# word_label = tk.Label(text = "Word", font=(FONT, WORD_FONT_SIZE, WORD_FONT_STYLE), bg="white")
-# word_label.place(x=400, y=285, anchor="center", )
 
 right_image = tk.PhotoImage(file=r"images\right.png")
-right_button = tk.Button(image=right_image, highlightthickness=0, command=next_word)
+right_button = tk.Button(image=right_image, highlightthickness=0, command=right_word)
 right_button.grid(column=1, row=1)
 
 wrong_image = tk.PhotoImage(file=r"images\wrong.png")
-wrong_button = tk.Button(image=wrong_image, highlightthickness=0, command=next_word)
+wrong_button = tk.Button(image=wrong_image, highlightthickness=0, command=wrong_word)
 wrong_button.grid(column=0, row=1)
 
 # flip_card(0)
