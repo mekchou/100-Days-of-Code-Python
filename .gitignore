@@ -158,6 +158,8 @@ data/
 # images folder
 images/
 
+# credential folder
+credentials/
 # vscode settings
 .vscode
 
