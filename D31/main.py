@@ -8,14 +8,20 @@ TITLE_FONT_SIZE = 40
 TITLE_FONT_STYLE = "italic"
 WORD_FONT_SIZE = 60
 WORD_FONT_STYLE = "bold"
+FRENCH_WORDS = "data/french_words.csv"
+WORDS_TO_LEARN = "D31/words_to_learn.csv"
 current_card = {}
+
 
 # create new flash cards
 # read csv
-dataframe = pd.read_csv(r"data\french_words.csv")
-# print(dataframe)
+# if words_to_learn exist then take it, otherwise read french_words.csv
+try:
+    dataframe = pd.read_csv(WORDS_TO_LEARN)
+except FileNotFoundError:
+    dataframe = pd.read_csv(FRENCH_WORDS)
+
 data_dict = dataframe.to_dict(orient="records")
-# print(data_dict)
 
 
 # pick random french word and translation into flashcard
@@ -23,11 +29,18 @@ data_dict = dataframe.to_dict(orient="records")
 def next_word():
     global current_card, flip_timer
     window.after_cancel(flip_timer)
-    current_card = rand.choice(data_dict)
-    canvas.itemconfig(card_image, image= card_front)
-    canvas.itemconfig(card_title, text = "French", fill="black")
-    canvas.itemconfig(card_word, text = current_card["French"], fill="black")
-    flip_timer = window.after(3000, func=flip_card)
+    try:
+        current_card = rand.choice(data_dict)
+    except IndexError:
+        print("You Learned all the word!")
+        canvas.itemconfig(card_image, image= card_back)
+        canvas.itemconfig(card_title, text = "Good Job", fill="white")
+        canvas.itemconfig(card_word, text = "No words left!", fill="white")
+    else:    
+        canvas.itemconfig(card_image, image= card_front)
+        canvas.itemconfig(card_title, text = "French", fill="black")
+        canvas.itemconfig(card_word, text = current_card["French"], fill="black")
+        flip_timer = window.after(3000, func=flip_card)
 
 # flip the card
 def flip_card():
@@ -47,7 +60,7 @@ def wrong_word():
 
 def save_file():
     new_dataframe = pd.DataFrame(data_dict)
-    new_dataframe.to_csv("D31/words_to_learn.csv", index = False)
+    new_dataframe.to_csv(WORDS_TO_LEARN, index = False)
 
 
 
@@ -66,7 +79,6 @@ card_image = canvas.create_image(400,263,image = card_front)
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
 card_title = canvas.create_text(400, 150, text= "Title", font=(FONT, TITLE_FONT_SIZE, TITLE_FONT_STYLE))
 card_word = canvas.create_text(400, 263, text= "Word", font=(FONT, WORD_FONT_SIZE, WORD_FONT_STYLE))
-
 
 
 canvas.grid(column=0, row=0, columnspan=2)
