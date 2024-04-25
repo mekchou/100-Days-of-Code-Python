@@ -14,8 +14,15 @@ import smtplib
 
 PLACEHOLDER = "[NAME]"
 FILE_PATHS = ["letter_1.txt", "letter_2.txt","letter_3.txt"]
+GMAIL_SMTP = "smtp.gmail.com"
+GMAIL_PORT = 587
 letters = []
 
+with open ("credentials\email.txt") as email:
+    my_email = email.readline()
+
+with open ("credentials\pw.txt") as pw:
+    my_password = pw.readline()
 
 # read csv into dict
 birthdays_df = pd.read_csv(r"data\birthdays.csv")
@@ -45,12 +52,25 @@ def replace_name(name, letter):
     new_letter = letter.replace(PLACEHOLDER, name)
     return new_letter
     
+    
+def send_email(receiver, letter):
+    with smtplib.SMTP(host=GMAIL_SMTP, port=GMAIL_PORT) as connection:
+        connection.starttls()
+        connection.login(user=my_email, password=my_password)
+        connection.sendmail(
+            from_addr=my_email
+            , to_addrs=receiver
+            , msg=f"Subject: Happy Birthday!\n\n{letter}"
+        )
+
+
 for receiver in birthdays_dict:
     if check_date(receiver):
         print(f"{receiver["name"]}'s birthday is {receiver["month"]}/{receiver["day"]}, it's today!")
         letter = pick_random_letter()
         new_letter = replace_name(receiver["name"], letter)
-        print(new_letter)
+        send_email(receiver["email"], new_letter)
+        # print(new_letter)
     else:
         print(f"{receiver["name"]}'s birthday is {receiver["month"]}/{receiver["day"]}, not today.")
         
