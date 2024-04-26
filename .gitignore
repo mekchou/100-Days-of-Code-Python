@@ -164,11 +164,16 @@ credentials/
 .vscode
 
 # images
-.png
-.jpeg
-.jpg
+*.png
+*.jpeg
+*.jpg
+*.gif
+
 # text
 *.txt
+
+# csv
+*.csv
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
