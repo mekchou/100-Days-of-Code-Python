@@ -13,7 +13,7 @@ import pandas as pd
 import smtplib
 
 PLACEHOLDER = "[NAME]"
-FILE_PATHS = ["letter_1.txt", "letter_2.txt","letter_3.txt"]
+FILE_PATHS = [f"letter_{n}.txt" for n in range(1,4)]
 GMAIL_SMTP = "smtp.gmail.com"
 GMAIL_PORT = 587
 letters = []
