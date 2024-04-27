@@ -26,11 +26,11 @@ class QuestionGui:
         )
 
         true_image = tk.PhotoImage(file="images/true.png")
-        self.true_button = tk.Button(image=true_image, highlightthickness=0)
+        self.true_button = tk.Button(image=true_image, highlightthickness=0, command=self.answer_true)
         self.true_button.grid(row=2, column=0, pady=20)
 
         false_image = tk.PhotoImage(file="images/false.png")
-        self.false_button = tk.Button(image=false_image, highlightthickness=0)
+        self.false_button = tk.Button(image=false_image, highlightthickness=0, command=self.answer_false)
         self.false_button.grid(row=2, column=1, pady=20)
 
         self.get_next_question()
@@ -40,3 +40,10 @@ class QuestionGui:
     def get_next_question(self):
         q_text = self.quiz.next_question()
         self.canvas.itemconfig(self.question_text, text=q_text)
+
+    def answer_true(self):
+        self.quiz.check_answer("true")
+        self.get_next_question()
+    def answer_false(self):
+        self.quiz.check_answer("false")
+        self.get_next_question()
