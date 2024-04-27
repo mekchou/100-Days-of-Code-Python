@@ -8,14 +8,14 @@ FONT = ("Arial", 20, "italic")
 
 class QuestionGui:
     def __init__(self, quiz_brain: QuizBrain) -> None:
-        self.score = 0
         self.quiz = quiz_brain
+        # self.score = self.quiz.
         self.window = tk.Tk()
         self.window.title("Quizler")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
 
         self.score_label = tk.Label(
-            text=f"Score: {self.score}", bg=THEME_COLOR, fg="white"
+            text=f"Score: {self.quiz.score}", bg=THEME_COLOR, fg="white"
         )
         self.score_label.grid(row=0, column=1)
 
@@ -38,12 +38,20 @@ class QuestionGui:
         self.window.mainloop()
 
     def get_next_question(self):
+        self.canvas.config(bg="white")
         q_text = self.quiz.next_question()
+        self.score_label.config(text=f"Score: {self.quiz.score}")
         self.canvas.itemconfig(self.question_text, text=q_text)
 
     def answer_true(self):
-        self.quiz.check_answer("true")
-        self.get_next_question()
+        self.give_feedback(self.quiz.check_answer("true"))
+    
     def answer_false(self):
-        self.quiz.check_answer("false")
-        self.get_next_question()
+        self.give_feedback(self.quiz.check_answer("false"))
+    
+    def give_feedback(self, is_right):
+        if is_right:
+            self.canvas.config(bg="green")
+        else:
+            self.canvas.config(bg="red")
+        self.window.after(1000, self.get_next_question)
