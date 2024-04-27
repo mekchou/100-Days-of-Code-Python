@@ -39,10 +39,15 @@ class QuestionGui:
 
     def get_next_question(self):
         self.canvas.config(bg="white")
-        q_text = self.quiz.next_question()
-        self.score_label.config(text=f"Score: {self.quiz.score}")
-        self.canvas.itemconfig(self.question_text, text=q_text)
-
+        if self.quiz.still_has_questions():
+            q_text = self.quiz.next_question()
+            self.score_label.config(text=f"Score: {self.quiz.score}")
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.canvas.itemconfig(self.question_text, text="You've reached the end of quiz")
+            self.true_button.config(state="disabled")
+            self.false_button.config(state="disabled")
+            
     def answer_true(self):
         self.give_feedback(self.quiz.check_answer("true"))
     
@@ -54,4 +59,4 @@ class QuestionGui:
             self.canvas.config(bg="green")
         else:
             self.canvas.config(bg="red")
-        self.window.after(1000, self.get_next_question)
+        self.window.after(100, self.get_next_question)
