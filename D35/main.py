@@ -1,6 +1,6 @@
 import requests
 import smtplib
-
+import os
 GMAIL_SMTP = "smtp.gmail.com"
 GMAIL_PORT = 587
 
@@ -10,11 +10,13 @@ MY_LAT = 43.653225
 MY_LONG = -79.383186
 FORECAST_COUNT = 24
 
-with open ("credentials\email.txt") as email:
-    my_email = email.readline()
+# with open ("credentials\email.txt") as email:
+#     my_email = email.readline()
 
-with open ("credentials\pw.txt") as pw:
-    my_password = pw.readline()
+# with open ("credentials\pw.txt") as pw:
+    # my_password = pw.readline()
+my_email = os.environ.get("ENV_MY_EMAIL")
+my_password = os.environ.get("ENV_MY_PASSWORD")
 
 receiver = "mek.chou@outlook.com"
 
