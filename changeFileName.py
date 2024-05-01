@@ -18,7 +18,7 @@ def rename_files_in_folder(folder_path, old_string, new_string):
             print(f"File {filename} renamed to {new_filename}")
 
 # Example usage:
-folder_path = r"D:\VAVdo\all\AV\Uncensored\香月澪.原版母帶無水印[11.3GB]"
-old_string = "bhd1080.com@"
+folder_path = r""
+old_string = ""
 new_string = ""
 rename_files_in_folder(folder_path, old_string, new_string)
