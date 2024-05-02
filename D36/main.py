@@ -8,6 +8,7 @@ NEWSAPI_URL = "https://newsapi.org/v2/everything"
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
+NEWS_TO_SHOW = 3
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -42,7 +43,7 @@ def get_news():
     parameter = {
         "q": COMPANY_NAME,
         "sortBy": "publishedAt", 
-        "pageSize": 3,
+        "pageSize": NEWS_TO_SHOW,
         "apiKey": NEWSAPI_API_KEY,
     }
     request = requests.get(NEWSAPI_URL, params=parameter)
@@ -56,8 +57,6 @@ def parse_news(news):
     url = news["url"]
     return headline, brief, url
     
-(headline, brief, url) = (parse_news(get_news()[0]))
-print(headline)
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
 
@@ -72,4 +71,15 @@ or
 Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
 Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
 """
+
+def main():
+    for n in range(NEWS_TO_SHOW):
+        (headline, brief, url) = (parse_news(get_news()[n]))
+        print(headline)
+        print(brief)
+        
+    # pass
+    
+if __name__ == "__main__":
+    main()
 
