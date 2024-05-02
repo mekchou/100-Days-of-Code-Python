@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 
 ALPHA_VANTAGE_API_KEY = "HSG4O0PBU6ZIVI5S"
 ALPHA_VANTAGE_URL = "https://www.alphavantage.co/query"
+NEWSAPI_API_KEY = "88051ca9c9d24521a4a114348dc941ac"
+NEWSAPI_URL = "https://newsapi.org/v2/everything"
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -11,13 +13,12 @@ COMPANY_NAME = "Tesla Inc"
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 
 def get_stock_data():
-
-    alpha_parameter = {
+    parameter = {
         "function":"TIME_SERIES_DAILY",
         "symbol": STOCK,
         "apikey": ALPHA_VANTAGE_API_KEY, 
     }
-    stock_request = requests.get(ALPHA_VANTAGE_URL, params=alpha_parameter)
+    stock_request = requests.get(ALPHA_VANTAGE_URL, params=parameter)
     stock_request.raise_for_status()
     stock_data = stock_request.json()
     return stock_data
@@ -31,12 +32,32 @@ def check_stock_price(stock_data):
     
     return abs((yesterday_stock_price-day_before_yesterday_stock_price)/day_before_yesterday_stock_price) > 0.01
 
-if check_stock_price(get_stock_data()):
-    print("get news")
+# if check_stock_price(get_stock_data()):
+    # print("get news")
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 
+def get_news():
+    parameter = {
+        "q": COMPANY_NAME,
+        "sortBy": "publishedAt", 
+        "pageSize": 3,
+        "apiKey": NEWSAPI_API_KEY,
+    }
+    request = requests.get(NEWSAPI_URL, params=parameter)
+    request.raise_for_status()
+    data = request.json()["articles"]
+    return data
+
+def parse_news(news):
+    headline = news["title"]
+    brief = news["description"]
+    url = news["url"]
+    return headline, brief, url
+    
+(headline, brief, url) = (parse_news(get_news()[0]))
+print(headline)
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
 
