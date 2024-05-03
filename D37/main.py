@@ -41,7 +41,7 @@ today = datetime(year = EVENT_YEAR, month=EVENT_MONTH, day=EVENT_DAY)
 today_date = today.strftime("%Y%m%d")
 # print(today_date)
 
-def add_event():
+def add_pixel():
     body = {
         "date": f"{today_date}",
         "quantity": f"{EVENT_QUANTITY}",
@@ -51,4 +51,4 @@ def add_event():
     response = requests.post(url=graph1_endpoint, json = body, headers=headers)
     print(response)
 
-add_event()
+add_pixel()
