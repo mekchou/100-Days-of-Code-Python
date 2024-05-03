@@ -1,9 +1,16 @@
 import requests
+from datetime import datetime
 
 PIXELA_ENDPOINT = "https://pixe.la/v1/users"
 USERNAME = "mekchou"
 TOKEN = "asjghuh34789sadf895"
 GRAPH_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs"
+
+EVENT_YEAR = 2024
+EVENT_MONTH = 4
+EVENT_DAY = 27
+EVENT_QUANTITY = 1
+EVENT_EJECT = 1
 
 user_params = {
     "token": TOKEN,
@@ -11,9 +18,8 @@ user_params = {
     "agreeTermsOfService": "yes",
     "notMinor": "yes", 
 }
-
-# response = requests.post(url=PIXELA_ENDPOINT, json=user_params)
-# print(response.text)
+def create_user():
+    response = requests.post(url=PIXELA_ENDPOINT, json=user_params)
 
 GRAPH_ID = "graph1"
 graph_config = {
@@ -27,15 +33,22 @@ graph_config = {
 headers = {
     "X-USER-TOKEN": TOKEN,
 }
+def create_graph():
+    response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
 
-# response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
-# print(response.text)
 
-body1 = {
-    "date": "20240502",
-    "quantity": "1",
-    "optionalData": "{\"eject\":\"0\"}"
-}
+today = datetime(year = EVENT_YEAR, month=EVENT_MONTH, day=EVENT_DAY)
+today_date = today.strftime("%Y%m%d")
+# print(today_date)
 
-graph1_endpoint = f"{GRAPH_ENDPOINT}/{GRAPH_ID}"
-response = requests.post(url=graph1_endpoint, json = body1, headers=headers)
+def add_event():
+    body = {
+        "date": f"{today_date}",
+        "quantity": f"{EVENT_QUANTITY}",
+        "optionalData": f"{{\"eject\": \"{EVENT_EJECT}\"}}"
+    }
+    graph1_endpoint = f"{GRAPH_ENDPOINT}/{GRAPH_ID}"
+    response = requests.post(url=graph1_endpoint, json = body, headers=headers)
+    print(response)
+
+add_event()
