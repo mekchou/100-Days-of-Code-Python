@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+import bearer
 
 GENDER = "male"
 WEIGHT_KG = 65
@@ -12,7 +13,7 @@ NUTRITION_HOST_DOMAIN = "https://trackapi.nutritionix.com"
 NUTIOTION_ENDPOINT = "/v2/natural/exercise"
 
 SHEETY_URL = "https://api.sheety.co/f57eb1dd3b398c09d11ae905bda32e17/workoutTracking/workouts"
-
+BEARER_TOKEN = "hjdishgjkldsfg456"
 
 
 
@@ -46,7 +47,7 @@ def add_exercise(exercise, duration, calories):
             "calories": calories
         }
     }
-    response = requests.post(url = SHEETY_URL, json=parameters)
+    response = requests.post(url = SHEETY_URL, json=parameters, auth=bearer.BearerAuth(BEARER_TOKEN))
 
 def main():
     exercise, duration, calories = get_exercise_stats()
