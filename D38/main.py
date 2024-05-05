@@ -1,19 +1,20 @@
 import requests
 from datetime import datetime
 import bearer
+import os
 
 GENDER = "male"
 WEIGHT_KG = 65
 HEIGHT_CM = 168
 AGE = 34
 
-NUTRITION_APP_ID = "63a7ba28"
-NUTRITION_API_KEY = "5222cdd05b53a0e6c04289ab5d5eea03"
+NUTRITION_APP_ID = os.environ.get("ENV_NUTRITION_APP_ID")
+NUTRITION_API_KEY = os.environ.get("ENV_NUTRITION_API_KEY")
 NUTRITION_HOST_DOMAIN = "https://trackapi.nutritionix.com"
 NUTIOTION_ENDPOINT = "/v2/natural/exercise"
 
 SHEETY_URL = "https://api.sheety.co/f57eb1dd3b398c09d11ae905bda32e17/workoutTracking/workouts"
-BEARER_TOKEN = "hjdishgjkldsfg456"
+BEARER_TOKEN = os.environ.get("ENV_SHEETY_BEARER_TOKEN")
 
 
 
