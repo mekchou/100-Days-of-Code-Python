@@ -10,3 +10,15 @@ class DataManager:
         response.raise_for_status()
         data = response.json()
         return data
+    
+    def update_data(self, data):
+        endpoint = f"{self.sheet_url}/{data["id"]}"
+        body = {
+            "price": {
+                "city": data["city"],
+                "iataCode": data["iataCode"],
+                "lowestPrice": data["lowestPrice"]
+            }
+        }
+        response = requests.put(url=endpoint, json=body)
+        response.raise_for_status()
