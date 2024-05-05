@@ -16,22 +16,25 @@ SHEETY_URL = "https://api.sheety.co/f57eb1dd3b398c09d11ae905bda32e17/workoutTrac
 
 
 
-def get_exercise_stats(prompt):
+def get_exercise_stats():
     headers = {
         "x-app-id": NUTRITION_APP_ID,
         "x-app-key": NUTRITION_API_KEY,
     }
     parameters= {
-        "query": prompt,
+        "query": input("What's your exercise today?\n"),
         "weight_kg": WEIGHT_KG,
         "height_cm": HEIGHT_CM,
         "age": AGE,
     }
     response = requests.post(url=f"{NUTRITION_HOST_DOMAIN}{NUTIOTION_ENDPOINT}", headers=headers, json=parameters)
-    print(response.raise_for_status())
-    print(response.json())
+    response.raise_for_status()
+    exercises = response.json()["exercises"][0]["user_input"]
+    duration_min = response.json()["exercises"][0]["duration_min"]
+    calories = response.json()["exercises"][0]["nf_calories"]
+    return (exercises, duration_min, calories)
     
-# get_exercise_stats(input("prompt: "))
+# get_exercise_stats(input("What's your exercise today?\n"))
 
 def add_exercise(exercise, duration, calories):
     parameters = {
@@ -45,5 +48,10 @@ def add_exercise(exercise, duration, calories):
     }
     response = requests.post(url = SHEETY_URL, json=parameters)
 
-add_exercise("run", 20,100)
+def main():
+    exercise, duration, calories = get_exercise_stats()
+    add_exercise(exercise, duration, calories)
+    
+if __name__ == "__main__":
+    main()
     
