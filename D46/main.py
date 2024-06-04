@@ -10,11 +10,11 @@ sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
         client_id="45c3f03776cd4347adf0d2cffec9e0bf", 
         client_secret="8b107bde5c5e413f9e16419dd8dca8d8",
-        # scope=scope,
-        redirect_uri="http://127.0.0.1",
-        # show_dialog=True,
+        scope=scope,
+        redirect_uri="https://example.com",
+        show_dialog=True,
         cache_path = "./D46/token.txt",
-        # username="mekchou"
+        username="mekchou"
         )
     )
 # print()
