@@ -29,14 +29,21 @@ driver.get("https://www.python.org/")
 # //*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[2]/time
 
 upcoming_events = {}
-for n in range(5):
-    events_date = driver.find_element(By.XPATH, value=f'//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[{n+1}]/time').text
-    events_name = driver.find_element(By.XPATH, value=f'//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[{n+1}]/a').text
+# for n in range(5):
+#     events_date = driver.find_element(By.XPATH, value=f'//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[{n+1}]/time').text
+#     events_name = driver.find_element(By.XPATH, value=f'//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[{n+1}]/a').text
+#     upcoming_events[n] = {
+#             "time": events_date,
+#             "name": events_name,
+#         }
+
+event_dates = driver.find_elements(By.CSS_SELECTOR, value = ".event-widget time")
+event_names = driver.find_elements(By.CSS_SELECTOR, value = ".event-widget li a")
+for n in range(len(event_dates)):
     upcoming_events[n] = {
-            "time": events_date,
-            "name": events_name,
+            "time": event_dates[n].text,
+            "name": event_names[n].text,
         }
 print(upcoming_events)
-
 
 input("Press Enter to close the browser...")
