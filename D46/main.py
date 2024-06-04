@@ -1,5 +1,5 @@
 import scraping
-
+import spotify
 
 # for idx, item in enumerate(results['items']):
     # track = item['track']
@@ -14,13 +14,18 @@ import scraping
 
 def main():
     selected_date = input("Which date do you want to travel to? Type the date in this format YYYY-MM-DD\n")
-    
+    year = selected_date.split("-")[0]
     # print(selected_date)
     song_list = scraping.SongScraping(selected_date)
     song_list.top_songs()
-    print(song_list.song_titles)
+    # print(song_list.song_titles)
 
+    sp = spotify.SpotifyAPI()
+    for song in song_list.song_titles:
+        sp.search(song, year)
+            
+    print(sp.song_uri)
 
 if __name__ == "__main__":
-    # main()
-    pass
+    main()
+    # pass
