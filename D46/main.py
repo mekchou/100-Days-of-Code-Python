@@ -1,24 +1,5 @@
 import scraping
-import spotipy
-# from spotipy.oauth2 import SpotifyClientCredentials
-from spotipy.oauth2 import SpotifyOAuth
-import os
-
-scope = "playlist-modify-private"
-
-sp = spotipy.Spotify(
-    auth_manager=SpotifyOAuth(
-        client_id="45c3f03776cd4347adf0d2cffec9e0bf", 
-        client_secret="8b107bde5c5e413f9e16419dd8dca8d8",
-        scope=scope,
-        redirect_uri="http://127.0.0.1:8080",
-        show_dialog=True,
-        cache_path = "./D46/token.txt",
-        username="mekchou"
-        )
-    )
-# print()
-results = sp.current_user()["id"]
+import spotify
 
 # for idx, item in enumerate(results['items']):
     # track = item['track']
@@ -33,13 +14,21 @@ results = sp.current_user()["id"]
 
 def main():
     selected_date = input("Which date do you want to travel to? Type the date in this format YYYY-MM-DD\n")
-    
+    year = selected_date.split("-")[0]
     # print(selected_date)
     song_list = scraping.SongScraping(selected_date)
     song_list.top_songs()
-    print(song_list.song_titles)
+    # print(song_list.song_titles)
 
+    sp = spotify.SpotifyAPI()
+    sp.create_playlist(selected_date)
+    for song in song_list.song_titles:
+        sp.search(song, year)
+    # print(sp.song_uri)
+    # print(sp.playlist_id)
+    sp.add_tracks()
+    # print(sp.song_uri)
 
 if __name__ == "__main__":
-    # main()
-    pass
+    main()
+    # pass
