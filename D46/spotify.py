@@ -24,6 +24,7 @@ class SpotifyAPI():
         )
         self.user_id = self.sp.current_user()["id"]
         self.song_uri = []
+        self.playlist_id = None
 
     def search(self, song, year):
         try:
@@ -32,4 +33,11 @@ class SpotifyAPI():
         except IndexError:
             print(f"{song} doesn't exist in Spotify. Skipped.")
         # return song_uri
+    
+    def create_playlist(self, selected_date):
+        result = self.sp.user_playlist_create(user=self.user_id, name=f"{selected_date} Billboard 100", public=False)
+        self.playlist_id = result["id"]
+    
+    def add_tracks(self):
+        self.sp.playlist_add_items(playlist_id=self.playlist_id,items=self.song_uri)
         

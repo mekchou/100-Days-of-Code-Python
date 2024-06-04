@@ -21,10 +21,13 @@ def main():
     # print(song_list.song_titles)
 
     sp = spotify.SpotifyAPI()
+    sp.create_playlist(selected_date)
     for song in song_list.song_titles:
         sp.search(song, year)
-            
-    print(sp.song_uri)
+    # print(sp.song_uri)
+    # print(sp.playlist_id)
+    sp.add_tracks()
+    # print(sp.song_uri)
 
 if __name__ == "__main__":
     main()
