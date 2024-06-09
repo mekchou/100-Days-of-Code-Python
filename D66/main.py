@@ -92,8 +92,18 @@ def get_search_cafes():
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
 
 # HTTP POST - Create Record
-# def get_random_cafe():
-#     pass
+@app.route("/add", methods=["POST"])
+def add_cafe():
+    form_dict = request.form.to_dict()
+    for key, value in form_dict.items():
+        if value == "true":
+            form_dict[key] = True
+        elif value == "false":
+            form_dict[key] = False
+    db.session.add(Cafe(**form_dict))
+    db.session.commit()
+    return jsonify(response={"success": "Successfully added the new cafe."})
+    # pass
 # HTTP PUT/PATCH - Update Record
 
 # HTTP DELETE - Delete Record
