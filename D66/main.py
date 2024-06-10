@@ -113,11 +113,16 @@ def add_cafe():
     return jsonify(response={"success": "Successfully added the new cafe."})
 
 # HTTP PUT/PATCH - Update Record
-@app.route("/update/<cafe_id>", methods = ["PUT", "PATCH"])
-def update_cafe():
-    pass
-
-
+@app.route("/update-price/<int:id>", methods = ["PATCH"])
+def update_cafe_price(id):
+    new_price = request.args.get("new_price")
+    cafe = db.get_or_404(Cafe, id)
+    if cafe: 
+        cafe.coffee_price = new_price
+        db.session.commit()
+        return jsonify(response={"success": "Successfully updated the price."})
+    else:
+        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
 # HTTP DELETE - Delete Record
 
 if __name__ == '__main__':
