@@ -73,6 +73,7 @@ def get_random_cafe():
     # })
     return jsonify(cafes={column.name: getattr(random_cafe, column.name) for column in random_cafe.__table__.columns})
 
+# show all data
 @app.route("/all")
 def get_all_cafes():
     result = db.session.execute(db.select(Cafe).order_by(Cafe.name))
@@ -80,6 +81,7 @@ def get_all_cafes():
     #This uses a List Comprehension but you could also split it into 3 lines.
     return jsonify(cafes=[{column.name: getattr(cafe, column.name) for column in cafe.__table__.columns} for cafe in all_cafes])
 
+# search by loc
 @app.route("/search")
 def get_search_cafes():
     query_location = request.args.get("loc")
@@ -90,6 +92,12 @@ def get_search_cafes():
         return jsonify(cafes=[{column.name: getattr(cafe, column.name) for column in cafe.__table__.columns} for cafe in all_cafes])
     else:
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."}), 404
+
+# get single id
+@app.route("/cafe/<int:id>")
+def get_cafe(id):
+    cafe = db.get_or_404(Cafe, id)
+    return jsonify(cafes={column.name: getattr(cafe, column.name) for column in cafe.__table__.columns})
 
 # HTTP POST - Create Record
 @app.route("/add", methods=["POST"])
@@ -103,8 +111,12 @@ def add_cafe():
     db.session.add(Cafe(**form_dict))
     db.session.commit()
     return jsonify(response={"success": "Successfully added the new cafe."})
-    # pass
+
 # HTTP PUT/PATCH - Update Record
+@app.route("/update/<cafe_id>", methods = ["PUT", "PATCH"])
+def update_cafe():
+    pass
+
 
 # HTTP DELETE - Delete Record
 
